@@ -1,0 +1,30 @@
+---
+- hosts: switch  
+  connection: local
+  gather_facts: False
+  ignore_errors: yes
+
+  tasks:
+    - name: run show commands via Telnet
+      telnet:
+# Переменная username лежит в папке group_vars в файле switch.yaml
+        user: "{{ username }}" 
+# Переменная password  лежит в папке group_vars в файле switch.yaml
+        password: "{{ password }}"
+# Запрос имени пользователя        
+        login_prompt: "User Name:"
+# Запрос пароля
+        password_prompt: "Password:"
+# Интерпретатор, ожидаемый перед отправкой следующей команды
+        prompts:
+          - "[>|#]"
+# Команда CLI
+        command:
+          # - terminal length 0
+            - show inventory
+          
+
+      register: output
+
+    - debug: var=output
+      
