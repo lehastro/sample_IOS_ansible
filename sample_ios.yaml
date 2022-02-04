@@ -23,8 +23,8 @@
           # - terminal length 0
             - show inventory
           
-
+# Регистрация результата в переменной output для использования его в debug
       register: output
-
+# Вывод команды
     - debug: var=output
       
